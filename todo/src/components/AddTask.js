@@ -1,34 +1,54 @@
 import React from "react";
 
-class ToDoList extends React.Component {
+class AddTask extends React.Component {
+  state = {
+    taskName: ""
+  };
+
+  handleChange = (e) => {
+    this.setState({ taskName: e.target.value });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    if (this.state.taskName.trim() && this.props.onAddTask) {
+      this.props.onAddTask(this.state.taskName.trim());
+      this.setState({ taskName: "" });
+    }
+  };
+
   render() {
     return (
-        <section>
-            <h1 className="m-3 fw-bold display-5 text-center mb-4">📝 Nouvelle Tâche</h1>
-            <div className="card shadow-sm rounded border-0">
-                <form className="card-body">
-                <div className="form-group mb-4">
-                    <label htmlFor="taskName" className="form-label fw-semibold text-secondary">
-                    Nom de la tâche
-                    </label>
-                    <input
-                    type="text"
-                    className="form-control form-control-lg border-primary"
-                    id="taskName"
-                    placeholder="Entrez une tâche"
-                    required
-                    style={{ boxShadow: '0 0 5px rgba(0,123,255,.5)' }}
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary btn-lg fw-semibold shadow-sm">
-                    Ajouter
-                </button>
-                </form>
-            </div>
-        </section>
-
-    )
-     
+      <div className="card shadow-sm  rounded border-0">
+        <form className="card-body" onSubmit={this.handleSubmit}>
+          <div className="form-group mb-4">
+            <label
+              htmlFor="taskName"
+              className="form-label fw-semibold text-secondary"
+            >
+              Nom de la tâche
+            </label>
+            <input
+              type="text"
+              className="form-control form-control-lg border-primary shadow-sm"
+              id="taskName"
+              placeholder="Entrez une tâche"
+              required
+              value={this.state.taskName}
+              onChange={this.handleChange}
+              style={{ boxShadow: '0 0 5px rgba(0,123,255,.5)' }}
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg fw-semibold shadow-sm"
+          >
+            Ajouter
+          </button>
+        </form>
+      </div>
+    );
   }
 }
-export default ToDoList;
+
+export default AddTask;

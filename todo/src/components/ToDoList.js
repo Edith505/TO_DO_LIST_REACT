@@ -1,27 +1,29 @@
 import React from "react";
+import ToDo from "./ToDo";
 
+const ToDoList = ({ tasks, onToggleCompleted }) => {
+  if (!tasks || tasks.length === 0) {
+    return (
+      <ul className="list-group m-3 shadow-sm rounded">
+        <li className="list-group-item text-center">
+          <h2 className="text-secondary">Aucune tâche à afficher</h2>
+          <p className="text-muted">Ajoutez une nouvelle tâche pour commencer !</p>
+        </li>
+      </ul>
+    );
+  }
 
-const ToDoList = () => (
-    <>
-        <h1 className="m-3 text-success fw-bold display-5 text-center mb-4">📋 Liste de tâches</h1>
+  return (
     <ul className="list-group m-3 shadow-sm rounded">
-            <li className="list-group-item d-flex justify-content-between align-items-center border-0 border-bottom py-3 fs-5 bg-white">
-                Ranger la chambre
-                <button className="btn btn-sm btn-outline-success rounded-pill px-3 shadow">&#x2713;</button>
-            </li>
-            <li className="list-group-item d-flex justify-content-between align-items-center border-0 border-bottom py-3 fs-5 bg-white">
-                Manger
-                <button className="btn btn-sm btn-outline-success rounded-pill px-3 shadow">&#x2713;</button>
-            </li>
-            <li className="list-group-item d-flex justify-content-between align-items-center border-0 border-bottom py-3 fs-5 bg-white">
-                Signer le contrat
-                <button className="btn btn-sm btn-outline-success rounded-pill px-3 shadow">&#x2713;</button>
-            </li>
-            <li className="list-group-item d-flex justify-content-between align-items-center border-0 py-3 fs-5 bg-white">
-                Devoir de maths
-                <button className="btn btn-sm btn-outline-success rounded-pill px-3 shadow">&#x2713;</button>
-            </li>
-        </ul>
-    </>
-)
+      {tasks.map((task) => (
+        <ToDo
+          key={task.id}
+          task={task}
+          onToggleCompleted={onToggleCompleted}
+        />
+      ))}
+    </ul>
+  );
+};
+
 export default ToDoList;
